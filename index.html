@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sao cũng được</title>
+  <meta name="color-scheme" content="dark light" />
+  <style>
+    :root{
+      --bg1:#0b1020;
+      --bg2:#151b3a;
+      --glass: rgba(255,255,255,.08);
+      --glass2: rgba(255,255,255,.14);
+      --stroke: rgba(255,255,255,.18);
+      --text: rgba(255,255,255,.92);
+      --muted: rgba(255,255,255,.62);
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+      --radius: 28px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; margin:0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; }
+    body{
+      color: var(--text);
+      overflow:hidden;
+      background:
+        radial-gradient(1200px 900px at 20% 20%, rgba(122, 92, 255,.35), transparent 60%),
+        radial-gradient(900px 800px at 80% 40%, rgba(0, 208, 255,.22), transparent 55%),
+        radial-gradient(1000px 900px at 50% 110%, rgba(255, 87, 168,.18), transparent 55%),
+        linear-gradient(160deg, var(--bg1), var(--bg2));
+    }
+
+    /* subtle animated noise overlay */
+    .noise{
+      position:fixed; inset:-20%;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+      mix-blend-mode:overlay;
+      opacity:.12;
+      transform:rotate(8deg);
+      animation: drift 12s linear infinite;
+      pointer-events:none;
+    }
+    @keyframes drift{
+      0%{ transform: translate3d(-2%, -2%, 0) rotate(8deg); }
+      100%{ transform: translate3d(2%, 2%, 0) rotate(8deg); }
+    }
+
+    /* floating orbs */
+    .orb{
+      position:absolute; border-radius:999px; filter: blur(20px);
+      opacity:.55;
+      animation: float 10s ease-in-out infinite;
+    }
+    .orb.one{ width:320px; height:320px; left:-80px; top:18%; background: rgba(122,92,255,.55); animation-duration: 12s; }
+    .orb.two{ width:260px; height:260px; right:-90px; top:10%; background: rgba(0,208,255,.45); animation-duration: 14s; }
+    .orb.three{ width:380px; height:380px; left:30%; bottom:-160px; background: rgba(255,87,168,.35); animation-duration: 16s; }
+    @keyframes float{
+      0%,100%{ transform: translateY(0) translateX(0) scale(1); }
+      50%{ transform: translateY(-18px) translateX(10px) scale(1.03); }
+    }
+
+    .wrap{
+      height:100%;
+      display:grid;
+      place-items:center;
+      padding: clamp(18px, 4vw, 48px);
+      position:relative;
+      z-index:1;
+    }
+
+    .card{
+      width:min(860px, 92vw);
+      padding: clamp(22px, 4vw, 44px);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, var(--glass), rgba(255,255,255,.04));
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      position:relative;
+      overflow:hidden;
+      transform: translateY(0);
+      animation: pop 900ms cubic-bezier(.2,.9,.2,1) both;
+    }
+
+    .card::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(700px 220px at 20% 0%, rgba(255,255,255,.18), transparent 60%),
+        radial-gradient(600px 220px at 80% 100%, rgba(255,255,255,.12), transparent 55%);
+      pointer-events:none;
+    }
+
+    @keyframes pop{
+      from{ opacity:0; transform: translateY(10px) scale(.985); }
+      to{ opacity:1; transform: translateY(0) scale(1); }
+    }
+
+    h1{
+      margin:0;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.02;
+      font-size: clamp(44px, 7vw, 82px);
+      text-align:center;
+      background: linear-gradient(90deg, rgba(255,255,255,.96), rgba(255,255,255,.72));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 1px 0 rgba(255,255,255,.06);
+    }
+
+    .sub{
+      margin: 14px 0 0;
+      text-align:center;
+      font-size: clamp(14px, 2.2vw, 16px);
+      color: var(--muted);
+    }
+
+    .pillrow{
+      margin-top: 26px;
+      display:flex;
+      gap:10px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+    .pill{
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.14);
+      color: rgba(255,255,255,.78);
+      font-size: 13px;
+      user-select:none;
+    }
+
+    .footer{
+      margin-top: 28px;
+      display:flex;
+      justify-content:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+    .btn{
+      appearance:none;
+      border:1px solid rgba(255,255,255,.18);
+      background: linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06));
+      color: rgba(255,255,255,.9);
+      padding: 11px 14px;
+      border-radius: 14px;
+      cursor:pointer;
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+      font-weight:600;
+    }
+    .btn:hover{ transform: translateY(-1px); border-color: rgba(255,255,255,.28); }
+    .btn:active{ transform: translateY(0); }
+
+    /* accessibility */
+    @media (prefers-reduced-motion: reduce){
+      .noise,.orb,.card{ animation:none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+  <div class="orb one"></div>
+  <div class="orb two"></div>
+  <div class="orb three"></div>
+
+  <main class="wrap">
+    <section class="card" aria-label="Sao cũng được card">
+      <h1>sao cũng được</h1>
+      <p class="sub">Một trang web tối giản — đẹp, hiện đại, nhìn “êm” mắt.</p>
+
+      <div class="pillrow" aria-hidden="true">
+        <span class="pill">Gradient</span>
+        <span class="pill">Glass</span>
+        <span class="pill">Soft motion</span>
+        <span class="pill">Responsive</span>
+      </div>
+
+      <div class="footer">
+        <button class="btn" onclick="toast('✅ Sao cũng được!')">Bấm chơi</button>
+        <button class="btn" onclick="toast('✨ Đẹp vừa đủ')">Bấm nữa</button>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Tiny toast (no libraries)
+    const toast = (msg) => {
+      const el = document.createElement("div");
+      el.textContent = msg;
+      Object.assign(el.style, {
+        position: "fixed",
+        left: "50%",
+        bottom: "28px",
+        transform: "translateX(-50%)",
+        padding: "12px 14px",
+        borderRadius: "14px",
+        background: "rgba(0,0,0,.45)",
+        border: "1px solid rgba(255,255,255,.18)",
+        color: "rgba(255,255,255,.92)",
+        backdropFilter: "blur(10px)",
+        WebkitBackdropFilter: "blur(10px)",
+        boxShadow: "0 18px 50px rgba(0,0,0,.45)",
+        fontWeight: 600,
+        letterSpacing: ".01em",
+        opacity: 0,
+        transition: "opacity .18s ease, transform .18s ease",
+        zIndex: 9999
+      });
+      document.body.appendChild(el);
+      requestAnimationFrame(() => {
+        el.style.opacity = 1;
+        el.style.transform = "translateX(-50%) translateY(-2px)";
+      });
+      setTimeout(() => {
+        el.style.opacity = 0;
+        el.style.transform = "translateX(-50%) translateY(6px)";
+        setTimeout(() => el.remove(), 200);
+      }, 1100);
+    };
+  </script>
+</body>
+</html>
