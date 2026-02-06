@@ -3,121 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sao cũng được</title>
+    <title>Medical Tools - Sao cũng được</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,300;0,600;1,300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@100;300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* Thiết lập cơ bản */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --primary-color: #6366f1;
+            --glass-bg: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-color: #e2e8f0;
+            --input-bg: rgba(0, 0, 0, 0.2);
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Be Vietnam Pro', sans-serif;
             height: 100vh;
             width: 100vw;
+            overflow: hidden;
+            background-color: #0f172a;
+            color: var(--text-color);
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
-            background-color: #0f172a; /* Màu nền tối */
-            color: white;
-            position: relative;
         }
 
-        /* Tạo hiệu ứng nền chuyển động (Aurora Background) */
+        /* Nền Aurora */
         .background-gradient {
             position: absolute;
-            top: 50%;
-            left: 50%;
+            top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle at 50% 50%, 
-                rgba(76, 29, 149, 0.4), 
-                rgba(219, 39, 119, 0.2), 
-                rgba(14, 165, 233, 0.2), 
-                transparent 60%);
+            width: 200%; height: 200%;
+            background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.3), rgba(236, 72, 153, 0.2), transparent 70%);
             filter: blur(80px);
-            animation: rotate 20s infinite linear;
-            z-index: 0;
+            animation: rotate 30s infinite linear;
+            z-index: -1;
+        }
+        @keyframes rotate { 0% { transform: translate(-50%, -50%) rotate(0deg); } 100% { transform: translate(-50%, -50%) rotate(360deg); } }
+
+        /* Container chính */
+        .app-container {
+            width: 100%;
+            max-width: 900px;
+            height: 85vh;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            transition: all 0.5s ease;
         }
 
-        @keyframes rotate {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-
-        /* Phần nội dung chính */
-        .content {
-            z-index: 10;
+        /* --- Màn hình Login --- */
+        #login-view {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             text-align: center;
             padding: 2rem;
-            
-            /* Hiệu ứng kính (Glassmorphism) */
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            
-            /* Animation xuất hiện */
-            animation: floatUp 1.5s cubic-bezier(0.22, 1, 0.36, 1);
-            max-width: 90%;
-            width: 500px;
         }
-
-        h1 {
-            font-size: 3.5rem;
-            font-weight: 200; /* Font mỏng cho tinh tế */
-            letter-spacing: -2px;
-            margin-bottom: 10px;
-            background: linear-gradient(to right, #fff, #94a3b8);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        p {
-            font-size: 1rem;
-            color: #94a3b8;
-            font-weight: 300;
-            font-style: italic;
-            margin-top: 1rem;
-        }
-
-        /* Nút bấm trang trí */
-        .btn {
+        .login-input {
             margin-top: 2rem;
-            display: inline-block;
-            padding: 12px 24px;
-            border: 1px solid rgba(255,255,255,0.2);
+            padding: 12px 20px;
             border-radius: 50px;
+            border: 1px solid var(--glass-border);
+            background: var(--input-bg);
             color: white;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
+            font-size: 1rem;
+            text-align: center;
+            width: 250px;
+            outline: none;
+            transition: 0.3s;
+        }
+        .login-input:focus { border-color: var(--primary-color); background: rgba(0,0,0,0.4); }
+        .btn-primary {
+            margin-top: 1rem;
+            padding: 10px 30px;
+            border-radius: 50px;
+            border: none;
+            background: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4); }
+
+        /* --- Màn hình Chính (Dashboard) --- */
+        #dashboard-view { display: none; height: 100%; flex-direction: column; }
+        
+        .header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .user-welcome { font-size: 1.2rem; font-weight: 600; }
+        .logout-btn { font-size: 0.9rem; color: #94a3b8; cursor: pointer; }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        /* Sidebar Menu */
+        .sidebar {
+            width: 250px;
+            padding: 1.5rem;
+            border-right: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .nav-item {
+            padding: 12px 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #94a3b8;
+        }
+        .nav-item:hover, .nav-item.active { background: rgba(255,255,255,0.1); color: white; }
+        .nav-item i { width: 20px; text-align: center; }
+
+        /* Vùng nội dung công cụ */
+        .tool-panel {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            display: none; /* Ẩn mặc định */
+        }
+        .tool-panel.active { display: block; animation: fadeIn 0.3s; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: 0; } }
+
+        /* Form styles */
+        .form-group { margin-bottom: 1.5rem; }
+        label { display: block; margin-bottom: 0.5rem; font-size: 0.9rem; color: #cbd5e1; }
+        .input-row { display: flex; gap: 10px; }
+        
+        select, input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid var(--glass-border);
+            background: var(--input-bg);
+            color: white;
+            outline: none;
+        }
+        
+        /* Checkbox list styled */
+        .checkbox-group { display: flex; flex-direction: column; gap: 8px; }
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
             cursor: pointer;
         }
+        .checkbox-item input { margin-right: 10px; accent-color: var(--primary-color); transform: scale(1.2); }
 
-        .btn:hover {
-            background: white;
-            color: #0f172a;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px -5px rgba(255, 255, 255, 0.2);
+        /* Kết quả */
+        .result-box {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 12px;
+            text-align: center;
         }
+        .result-value { font-size: 2rem; font-weight: 700; color: #a5b4fc; margin: 0.5rem 0; }
+        .result-note { font-size: 0.9rem; color: #94a3b8; }
 
-        @keyframes floatUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Responsive cho điện thoại */
-        @media (max-width: 600px) {
-            h1 { font-size: 2.5rem; }
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .app-container { height: 100vh; border-radius: 0; }
+            .main-content { flex-direction: column; }
+            .sidebar { width: 100%; flex-direction: row; padding: 10px; overflow-x: auto; border-right: none; border-bottom: 1px solid var(--glass-border); }
+            .nav-item { white-space: nowrap; font-size: 0.8rem; }
+            .header { padding: 1rem; }
         }
     </style>
 </head>
@@ -125,22 +203,229 @@
 
     <div class="background-gradient"></div>
 
-    <div class="content">
-        <h1>sao cũng được.</h1>
-        <p>"Không quan trọng đích đến, miễn là thấy vui."</p>
-        
-        <a class="btn" onclick="randomColor()">Bấm vào đây cho vui</a>
+    <div class="app-container">
+        <div id="login-view">
+            <h1 style="font-weight: 200; font-size: 3rem; margin-bottom: 10px;">Medical.</h1>
+            <p style="color: #94a3b8;">Công cụ tính toán lâm sàng</p>
+            <input type="text" id="username" class="login-input" placeholder="Nhập tên bác sĩ..." autocomplete="off">
+            <button class="btn-primary" onclick="login()">Đăng nhập</button>
+        </div>
+
+        <div id="dashboard-view">
+            <div class="header">
+                <div class="user-welcome">Xin chào, <span id="display-name">Bác sĩ</span></div>
+                <div class="logout-btn" onclick="logout()">Thoát</div>
+            </div>
+
+            <div class="main-content">
+                <div class="sidebar">
+                    <div class="nav-item active" onclick="switchTab('tab-gfr')">
+                        <i class="fa-solid fa-kidney"></i> eGFR (Thận)
+                    </div>
+                    <div class="nav-item" onclick="switchTab('tab-hasbled')">
+                        <i class="fa-solid fa-droplet"></i> HAS-BLED
+                    </div>
+                    <div class="nav-item" onclick="switchTab('tab-chad')">
+                        <i class="fa-solid fa-heart-pulse"></i> CHA₂DS₂-VASc
+                    </div>
+                </div>
+
+                <div id="tab-gfr" class="tool-panel active">
+                    <h2 style="margin-bottom: 1.5rem;">Độ lọc cầu thận (eGFR)</h2>
+                    
+                    <div class="form-group">
+                        <label>Giới tính</label>
+                        <select id="gfr-gender">
+                            <option value="male">Nam</option>
+                            <option value="female">Nữ</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tuổi</label>
+                        <input type="number" id="gfr-age" placeholder="Nhập tuổi">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Creatinine huyết thanh (µmol/L)</label>
+                        <input type="number" id="gfr-creat" placeholder="VD: 80, 100...">
+                    </div>
+
+                    <button class="btn-primary" style="width: 100%" onclick="calcGFR()">Tính toán</button>
+
+                    <div class="result-box" id="gfr-result" style="display:none">
+                        <p>CKD-EPI (2021)</p>
+                        <div class="result-value" id="res-ckd">--</div>
+                        <p style="margin-top:10px">MDRD</p>
+                        <div class="result-value" id="res-mdrd" style="font-size: 1.5rem; color: #cbd5e1;">--</div>
+                        <p class="result-note">Đơn vị: mL/min/1.73m²</p>
+                    </div>
+                </div>
+
+                <div id="tab-hasbled" class="tool-panel">
+                    <h2 style="margin-bottom: 1.5rem;">HAS-BLED Score</h2>
+                    <p style="color:#94a3b8; margin-bottom: 1rem; font-size: 0.9rem;">Đánh giá nguy cơ chảy máu ở bệnh nhân Rung nhĩ</p>
+                    
+                    <div class="checkbox-group">
+                        <label class="checkbox-item"><input type="checkbox" class="hb-check" value="1"> Tăng huyết áp (H)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="hb-check" value="1"> Chức năng thận bất thường (A)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="hb-check" value="1"> Chức năng gan bất thường (A)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="hb-check" value="1"> Tiền sử Đột quỵ (S)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="hb-check" value="1"> Tiền sử hoặc cơ địa chảy máu (B)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="hb-check" value="1"> INR dao động/không ổn định (L)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="hb-check" value="1"> Người cao tuổi (>65) (E)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="hb-check" value="1"> Dùng thuốc (NSAIDS, kháng kết tập TC) (D)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="hb-check" value="1"> Nghiện rượu (D)</label>
+                    </div>
+
+                    <button class="btn-primary" style="width: 100%; margin-top: 20px;" onclick="calcHasBled()">Tính điểm</button>
+
+                    <div class="result-box" id="hb-result" style="display:none">
+                        <div class="result-value" id="res-hb">0</div>
+                        <p class="result-note" id="note-hb">Nguy cơ thấp</p>
+                    </div>
+                </div>
+
+                <div id="tab-chad" class="tool-panel">
+                    <h2 style="margin-bottom: 1.5rem;">CHA₂DS₂-VASc Score</h2>
+                    <p style="color:#94a3b8; margin-bottom: 1rem; font-size: 0.9rem;">Đánh giá nguy cơ đột quỵ ở bệnh nhân Rung nhĩ</p>
+                    
+                    <div class="form-group">
+                        <label>Độ tuổi</label>
+                        <select id="chad-age">
+                            <option value="0">< 65 tuổi (0 điểm)</option>
+                            <option value="1">65 - 74 tuổi (1 điểm)</option>
+                            <option value="2">≥ 75 tuổi (2 điểm)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Giới tính</label>
+                        <select id="chad-sex">
+                            <option value="0">Nam (0 điểm)</option>
+                            <option value="1">Nữ (1 điểm)</option>
+                        </select>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <label class="checkbox-item"><input type="checkbox" class="cd-check" value="1"> Suy tim sung huyết / LVEF ≤ 40% (C)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="cd-check" value="1"> Tăng huyết áp (H)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="cd-check" value="1"> Đái tháo đường (D)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="cd-check" value="2"> Tiền sử Đột quỵ / TIA / Huyết khối (S₂)</label>
+                        <label class="checkbox-item"><input type="checkbox" class="cd-check" value="1"> Bệnh mạch máu (MI, PAD, mảng bám ĐMC) (V)</label>
+                    </div>
+
+                    <button class="btn-primary" style="width: 100%; margin-top: 20px;" onclick="calcChad()">Tính điểm</button>
+
+                    <div class="result-box" id="cd-result" style="display:none">
+                        <div class="result-value" id="res-cd">0</div>
+                        <p class="result-note" id="note-cd">--</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
     </div>
 
     <script>
-        // Một chút JS để khi bấm nút, chữ đổi màu ngẫu nhiên (cho đúng chất sao cũng được)
-        function randomColor() {
-            const colors = ['#f472b6', '#38bdf8', '#a78bfa', '#34d399', '#fbbf24'];
-            const random = colors[Math.floor(Math.random() * colors.length)];
-            const title = document.querySelector('h1');
+        // --- LOGIC GIAO DIỆN ---
+        function login() {
+            const name = document.getElementById('username').value;
+            if(!name) { alert("Vui lòng nhập tên!"); return; }
             
-            // Thay đổi màu gradient của chữ
-            title.style.backgroundImage = `linear-gradient(to right, #fff, ${random})`;
+            document.getElementById('display-name').textContent = "BS. " + name;
+            
+            // Hiệu ứng chuyển màn hình
+            document.getElementById('login-view').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('login-view').style.display = 'none';
+                document.getElementById('dashboard-view').style.display = 'flex';
+                // Trigger animation
+                document.querySelector('.app-container').style.transform = 'scale(1)';
+            }, 300);
+        }
+
+        function logout() {
+            location.reload();
+        }
+
+        function switchTab(tabId) {
+            // Xóa active cũ
+            document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tool-panel').forEach(el => el.classList.remove('active'));
+            
+            // Active mới
+            event.currentTarget.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // --- LOGIC Y KHOA ---
+
+        // 1. Tính eGFR (MDRD & CKD-EPI)
+        function calcGFR() {
+            const gender = document.getElementById('gfr-gender').value;
+            const age = parseFloat(document.getElementById('gfr-age').value);
+            const creatUm = parseFloat(document.getElementById('gfr-creat').value); // micromol/L
+
+            if (!age || !creatUm) { alert("Vui lòng nhập đủ thông tin!"); return; }
+
+            const creatMg = creatUm / 88.4; // Đổi sang mg/dL
+            let mdrd = 0;
+            let ckdepi = 0;
+
+            // MDRD Formula
+            // 175 x (Scr)^-1.154 x (Age)^-0.203 x (0.742 if female) x (1.212 if black - bỏ qua ở đây vì VN)
+            let factorMDRD = (gender === 'female') ? 0.742 : 1.0;
+            mdrd = 175 * Math.pow(creatMg, -1.154) * Math.pow(age, -0.203) * factorMDRD;
+
+            // CKD-EPI (2021) Formula
+            // Nam: 142 x min(Scr/K, 1)^alpha x max(Scr/K, 1)^-1.200 x 0.9938^Age x (1.012 if female)
+            let k = (gender === 'female') ? 0.7 : 0.9;
+            let alpha = (gender === 'female') ? -0.241 : -0.302;
+            let factorCKD = (gender === 'female') ? 1.012 : 1.0;
+            
+            ckdepi = 142 * Math.pow(Math.min(creatMg/k, 1), alpha) * Math.pow(Math.max(creatMg/k, 1), -1.200) * Math.pow(0.9938, age) * factorCKD;
+
+            // Hiển thị
+            document.getElementById('gfr-result').style.display = 'block';
+            document.getElementById('res-ckd').textContent = ckdepi.toFixed(1);
+            document.getElementById('res-mdrd').textContent = mdrd.toFixed(1);
+        }
+
+        // 2. Tính HAS-BLED
+        function calcHasBled() {
+            let score = 0;
+            const checks = document.querySelectorAll('.hb-check:checked');
+            checks.forEach(c => score += parseInt(c.value));
+
+            document.getElementById('hb-result').style.display = 'block';
+            document.getElementById('res-hb').textContent = score + " điểm";
+            
+            let note = "";
+            if(score >= 3) note = "Nguy cơ chảy máu CAO. Cần thận trọng và theo dõi sát.";
+            else note = "Nguy cơ chảy máu thấp/trung bình.";
+            document.getElementById('note-hb').textContent = note;
+        }
+
+        // 3. Tính CHA2DS2-VASc
+        function calcChad() {
+            let score = 0;
+            // Cộng điểm từ select box
+            score += parseInt(document.getElementById('chad-age').value);
+            score += parseInt(document.getElementById('chad-sex').value);
+            
+            // Cộng điểm từ checkbox
+            const checks = document.querySelectorAll('.cd-check:checked');
+            checks.forEach(c => score += parseInt(c.value));
+
+            document.getElementById('cd-result').style.display = 'block';
+            document.getElementById('res-cd').textContent = score + " điểm";
+
+            let note = "";
+            if(score === 0) note = "Nguy cơ thấp. Không cần chống đông.";
+            else if(score === 1) note = "Nguy cơ trung bình. Cân nhắc chống đông (Nam).";
+            else note = "Nguy cơ cao. Khuyến cáo dùng thuốc chống đông.";
+            document.getElementById('note-cd').textContent = note;
         }
     </script>
 </body>
